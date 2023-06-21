@@ -1,0 +1,19 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "api para reinicio de servico",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "C. Henrique",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-powershell": "^5.0.1",
+    "node-winrm": "^0.1.3"
+  },
+  "devDependencies": {
+    "rcedit": "^3.0.1"
+  }
+}

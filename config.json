@@ -1,0 +1,5 @@
+{
+  "service": "ServicoSysPDV",
+  "baseIP": "192.168.0.",
+  "port": 3000
+}
