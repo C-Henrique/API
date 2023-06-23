@@ -23,3 +23,15 @@ Por exemplo,
 ```sh
 http://192.168.16.50/restart/120
 ```
+## Modelo de ``Config.json``
+
+```sh
+{
+  "service": "nome do servico",
+  "baseIP": "base de IP",
+  "user":"´dominio\\usuário",
+  "pw":"senha do usuário",
+  "port": 3000 -> "Porta da API"
+}
+
+```

@@ -34,7 +34,7 @@ try {
 
 const stopService = (ip, service) => {
   return new Promise((resolve, reject) => {
-    exec(`taskkill /S ${ip} /F /FI "SERVICES eq ${service}"`, (error, stdout, stderr) => {
+    exec(`taskkill /S ${ip} /u ${config.user} /p ${config.pw} /F /FI "SERVICES eq ${service}"`, (error, stdout, stderr) => {
       if (error) {
         console.error('Erro durante a execução do comando:', error);
         console.error('Erro no stderr:', stderr);
@@ -49,7 +49,7 @@ const stopService = (ip, service) => {
 
 const startService = (ip, service) => {
   return new Promise((resolve, reject) => {
-    exec(`sc \\\\${ip} start ${service}`, (error, stdout, stderr) => {
+    exec(`sc \\\\${ip} start ${service} type=own obj="${config.user} password="${config.pw}"`, (error, stdout, stderr) => {
       if (error) {
         console.error('Erro durante a execução do comando:', error);
         console.error('Erro no stderr:', stderr);
@@ -86,7 +86,7 @@ app.get('/restart/:ip', async (req, res) => {
   log(`Requisição para reiniciar o serviço iniciada. IP do servidor: ${windowsIP}. Cliente: ${clientIP}`);
 
   try {
-    const command = `powershell.exe -Command "& {Get-Service -ComputerName ${windowsIP} -Name '${service}' | Select-Object -ExpandProperty Status}"`;
+    const command = `powershell.exe -Command "& {Get-Service -ComputerName ${windowsIP} -Name '${service}' | Select-Object -ExpandProperty Status}" -Credential (New-Object System.Management.Automation.PSCredential ('${config.user}', (ConvertTo-SecureString -String '${config.pw}' -AsPlainText -Force)))`;
     const { stdout, stderr } = await execAsync(command);
 
     if (stderr) {
